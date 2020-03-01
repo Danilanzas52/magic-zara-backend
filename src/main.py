@@ -14,6 +14,7 @@ def get_all():
     category = request.args.get('category')
     query = {"category":category} if category else {}
     docs = db['exported_db_zara'].find(query, collection_filter)
+
     return utils.to_json(docs)
 
 @app.route('/<id>')
