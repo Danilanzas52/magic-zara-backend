@@ -14,3 +14,6 @@ Go to [http://127.0.0.1:5000/?category=coat](http://127.0.0.1:5000/?category=coa
 ## Endpoints
 - `/`: Get all stored products
   - category
+- `/<id>`: Get concrete product (`TODO`)
+- `/search`: Get products by keywords
+ - keywords
