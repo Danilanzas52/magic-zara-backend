@@ -1,5 +1,6 @@
 from flask import Flask, request
 from database import MongoDB_Handler as DB_Handler
+from bson.objectid import ObjectId
 import utils
 
 app = Flask(__name__)
@@ -9,25 +10,28 @@ collection_filter = {
     "url":0
 } # filters the keys returned by database find
 
+filter = {
+    "_id": 0
+}
+
 @app.route('/')
 def get_all():
     category = request.args.get('category')
     query = {"category":category} if category else {}
-    docs = db['exported_db_zara'].find(query, collection_filter)
-
+    docs = db['zara'].find(query, collection_filter)
     return utils.to_json(docs)
 
 @app.route('/<id>')
 def get_id(id):
-    # TODO: get by id
-    return
+    docs = db['zara'].find({"_id": ObjectId(id)}, filter)
+    return utils.to_json(docs)
 
 @app.route('/search')
 def search():
     keywords = request.args.get('keywords')
-    # TODO: implement
-    # docs = findbykeywords(keywords)
-    docs = None
+    if keywords == None: return
+    print(keywords)
+    docs = utils.find_by_keywords(db, keywords)
     return utils.to_json(docs)
 
 

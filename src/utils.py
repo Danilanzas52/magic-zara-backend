@@ -9,7 +9,6 @@ def to_json(docs):
 
 
 def find_by_keywords(db, keyword_string):
-    #Todo: specify in readme that is mandatory to create a text index in mongodb
     return db["zara"].find(
         {
             '$text': {
